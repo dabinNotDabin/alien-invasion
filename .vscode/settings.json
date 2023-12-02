@@ -16,4 +16,5 @@
         },
       },
       "isort.args":["--profile", "black"],
+      "python.analysis.autoImportCompletions": true,
 }
