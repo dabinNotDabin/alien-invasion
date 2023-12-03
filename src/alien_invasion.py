@@ -8,18 +8,17 @@ from ship import Ship
 
 class AlienInvasion:
     def __init__(self) -> None:
-        self.settings = Settings()
         pygame.init()
+        pygame.display.set_caption("Alien fkin Invasion")
 
+        self.settings = Settings()
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
         )
+        self.screen.fill(self.settings.background_colour)
 
         self.clock = pygame.time.Clock()
-
-        pygame.display.set_caption("Alien fkin Invasion")
-
-        self.ship = Ship(self)
+        self.ship = Ship(self.screen.get_rect().midbottom)
 
     def run_game(self):
         while True:
@@ -42,8 +41,7 @@ class AlienInvasion:
             self.ship.move(-2, 0)
 
     def _update_screen(self):
-        self.screen.fill(self.settings.background_colour)
-        self.ship.draw()
+        self.ship.draw(self.screen)
 
         pygame.display.flip()
 
