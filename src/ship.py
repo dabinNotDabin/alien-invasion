@@ -19,11 +19,13 @@ class Ship:
     def draw(self, screen: "Surface"):
         screen.blit(self.image, self.rect)
 
-    def move_left(self):
-        self._move(-self.speed)
+    def move_left(self, screen: "Surface"):
+        if self.rect.left - self.speed >= screen.get_rect().left:
+            self._move(-self.speed)
 
-    def move_right(self):
-        self._move(self.speed)
+    def move_right(self, screen: "Surface"):
+        if self.rect.right + self.speed <= screen.get_rect().right:
+            self._move(self.speed)
 
     def _move(self, horizontalDistance):
         self.x += horizontalDistance
