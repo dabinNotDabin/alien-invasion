@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+from event_handler import EventHandler
 from settings import Settings
 from ship import Ship
 
@@ -18,7 +19,11 @@ class AlienInvasion:
         self.screen.fill(self.settings.background_colour)
 
         self.clock = pygame.time.Clock()
-        self.ship = Ship(self.screen.get_rect().midbottom)
+
+        self.event_handler = EventHandler()
+
+        shipSpeed = 3.0
+        self.ship = Ship(shipSpeed, self.screen.get_rect().midbottom)
 
     def run_game(self):
         while True:
@@ -31,18 +36,15 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
 
-            if event.type == pygame.KEYDOWN:
-                self._handle_key_down(event)
+            self.event_handler.handle(event)
 
-    def _handle_key_down(self, event):
-        if event.key == pygame.K_RIGHT:
-            self.ship.move(2, 0)
-        if event.key == pygame.K_LEFT:
-            self.ship.move(-2, 0)
+        if self.event_handler.is_moving_left:
+            self.ship.move_left()
+        if self.event_handler.is_moving_right:
+            self.ship.move_right()
 
     def _update_screen(self):
         self.ship.draw(self.screen)
-
         pygame.display.flip()
 
 
