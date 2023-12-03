@@ -37,13 +37,13 @@ class AlienInvasion:
 
     def _handle_key_down(self, event):
         if event.key == pygame.K_RIGHT:
-            self.ship.rect.x += 2
+            self.ship.move(2, 0)
         if event.key == pygame.K_LEFT:
-            self.ship.rect.x -= 2
+            self.ship.move(-2, 0)
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
-        self.ship.blitme()
+        self.ship.draw()
 
         pygame.display.flip()
 
