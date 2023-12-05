@@ -1,4 +1,3 @@
-from turtle import speed
 from typing import TYPE_CHECKING, Tuple
 
 import pygame
