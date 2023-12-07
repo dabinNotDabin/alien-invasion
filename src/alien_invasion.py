@@ -67,8 +67,9 @@ class AlienInvasion:
             self._fire_bullet()
 
     def _fire_bullet(self):
-        bullet = Bullet(self.ship.rect.midtop)
-        self.bullets.add(bullet)
+        if len(self.bullets) < self.settings.num_bullets_allowed:
+            bullet = Bullet(self.ship.rect.midtop)
+            self.bullets.add(bullet)
 
     def _handle_key_up(self, event):
         if event.key == pygame.K_LEFT:
