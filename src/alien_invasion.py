@@ -13,7 +13,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien fkin Invasion")
 
         self.settings = Settings()
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((1200, 800))
 
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
@@ -79,9 +79,15 @@ class AlienInvasion:
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
         self.ship.draw(self.screen)
-        for bullet in self.bullets.sprites():
-            bullet.draw(self.screen)
+        self._draw_bullets()
         pygame.display.flip()
+
+    def _draw_bullets(self):
+        for bullet in self.bullets.sprites():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+            else:
+                bullet.draw(self.screen)
 
 
 if __name__ == "__main__":
