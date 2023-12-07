@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from event_handler import EventHandler
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
 
@@ -20,25 +20,29 @@ class AlienInvasion:
 
         self.clock = pygame.time.Clock()
 
-        self.event_handler = EventHandler()
+        self.is_moving_left = False
+        self.is_moving_right = False
 
         shipSpeed = 5.0
         self.ship = Ship(shipSpeed, self.screen.get_rect().midbottom)
 
+        self.bullets = pygame.sprite.Group()
+
     def run_game(self):
         while True:
             self._check_events()
+            self.bullets.update()
             self._update_screen()
             self.clock.tick(60)
 
     def _check_events(self):
         for event in pygame.event.get():
             self._check_for_quit(event)
-            self.event_handler.handle(event)
+            self._check_key_presses(event)
 
-        if self.event_handler.is_moving_left:
+        if self.is_moving_left:
             self.ship.move_left(self.screen)
-        if self.event_handler.is_moving_right:
+        if self.is_moving_right:
             self.ship.move_right(self.screen)
 
     def _check_for_quit(self, event):
@@ -47,9 +51,36 @@ class AlienInvasion:
         ):
             sys.exit()
 
+    def _check_key_presses(self, event):
+        if event.type == pygame.KEYDOWN:
+            self._handle_key_down(event)
+
+        if event.type == pygame.KEYUP:
+            self._handle_key_up(event)
+
+    def _handle_key_down(self, event):
+        if event.key == pygame.K_LEFT:
+            self.is_moving_left = True
+        elif event.key == pygame.K_RIGHT:
+            self.is_moving_right = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+    def _fire_bullet(self):
+        bullet = Bullet(self.ship.rect.midtop)
+        self.bullets.add(bullet)
+
+    def _handle_key_up(self, event):
+        if event.key == pygame.K_LEFT:
+            self.is_moving_left = False
+        elif event.key == pygame.K_RIGHT:
+            self.is_moving_right = False
+
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
         self.ship.draw(self.screen)
+        for bullet in self.bullets.sprites():
+            bullet.draw(self.screen)
         pygame.display.flip()
 
 
