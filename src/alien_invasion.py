@@ -2,8 +2,8 @@ import sys
 
 import pygame
 
-from alien import Alien
 from alien_settings import AlienSettings
+from aliens import Aliens
 from bullets import Bullets
 from settings import Settings
 from ship import Ship
@@ -16,9 +16,7 @@ class AlienInvasion:
 
         self.settings = Settings()
         self.alien_settings = AlienSettings()
-        self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height)
-        )
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
         self.clock = pygame.time.Clock()
 
@@ -29,9 +27,7 @@ class AlienInvasion:
         self.ship = Ship(ship_speed, self.screen.get_rect().midbottom)
 
         self.bullets = Bullets(self.settings.max_bullets)
-        self.aliens = pygame.sprite.Group()
-
-        self._create_fleet()
+        self.aliens = Aliens(self.screen.get_rect().topleft, self.screen.get_rect().bottomright)
 
     def run_game(self):
         while True:
@@ -52,9 +48,7 @@ class AlienInvasion:
             self.ship.move_right(self.screen)
 
     def _check_for_quit(self, event):
-        if event.type == pygame.QUIT or (
-            event.type == pygame.KEYDOWN and event.key == pygame.K_q
-        ):
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             sys.exit()
 
     def _check_key_presses(self, event):
@@ -77,21 +71,6 @@ class AlienInvasion:
             self.is_moving_left = False
         elif event.key == pygame.K_RIGHT:
             self.is_moving_right = False
-
-    def _create_fleet(self):
-        screen_rect = self.screen.get_rect()
-        top_left = screen_rect.topleft
-
-        max_y = self.settings.screen_height - 3 * self.alien_settings.height
-        max_x = self.settings.screen_width - self.alien_settings.width
-        alien_spacing = 2 * self.alien_settings.width
-
-        while top_left[0] < max_y:
-            while top_left[1] < max_x:
-                self.aliens.add(Alien(top_left))
-                top_left = (top_left[0], top_left[1] + alien_spacing)
-
-            top_left = (top_left[0] + alien_spacing, screen_rect.left)
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)

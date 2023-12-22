@@ -10,15 +10,15 @@ if TYPE_CHECKING:
 
 
 class Alien(Sprite):
-    def __init__(self, startingTopLeft: Tuple[int, int]) -> None:
+    def __init__(self, top_left: Tuple[int, int]) -> None:
         super().__init__()
 
         self.settings = AlienSettings()
 
         self.image = pygame.image.load("./images/alien.bmp")
         self.rect = self.image.get_rect()
-        self.rect.y = startingTopLeft[0]
-        self.rect.x = startingTopLeft[1]
+        self.rect.y = top_left[0]
+        self.rect.x = top_left[1]
 
         self.x = float(self.rect.x)
 
