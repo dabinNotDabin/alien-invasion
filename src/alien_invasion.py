@@ -4,7 +4,7 @@ import pygame
 
 from alien import Alien
 from alien_settings import AlienSettings
-from bullet import Bullet
+from bullets import Bullets
 from settings import Settings
 from ship import Ship
 
@@ -29,7 +29,7 @@ class AlienInvasion:
         ship_speed = 5.0
         self.ship = Ship(ship_speed, self.screen.get_rect().midbottom)
 
-        self.bullets = pygame.sprite.Group()
+        self.bullets = Bullets(self.settings.max_bullets)
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
@@ -71,12 +71,7 @@ class AlienInvasion:
         elif event.key == pygame.K_RIGHT:
             self.is_moving_right = True
         elif event.key == pygame.K_SPACE:
-            self._fire_bullet()
-
-    def _fire_bullet(self):
-        if len(self.bullets) < self.settings.num_bullets_allowed:
-            bullet = Bullet(self.ship.rect.midtop)
-            self.bullets.add(bullet)
+            self.bullets.fire_bullet(self.ship.rect.midtop)
 
     def _handle_key_up(self, event):
         if event.key == pygame.K_LEFT:
@@ -102,16 +97,9 @@ class AlienInvasion:
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
         self.ship.draw(self.screen)
-        self._draw_bullets()
+        self.bullets.draw(self.screen)
         self.aliens.draw(self.screen)
         pygame.display.flip()
-
-    def _draw_bullets(self):
-        for bullet in self.bullets.sprites():
-            if bullet.rect.bottom <= 0:
-                self.bullets.remove(bullet)
-            else:
-                bullet.draw(self.screen)
 
 
 if __name__ == "__main__":

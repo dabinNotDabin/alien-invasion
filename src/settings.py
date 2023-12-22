@@ -6,4 +6,4 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 800
         self.background_colour = (230, 230, 230)
-        self.num_bullets_allowed = 3
+        self.max_bullets = 3

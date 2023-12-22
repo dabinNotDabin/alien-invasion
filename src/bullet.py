@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class Bullet(Sprite):
-    def __init__(self, startingMidTop: Tuple[float, float]) -> None:
+    def __init__(self, mid_top_position: Tuple[float, float]) -> None:
         super().__init__()
 
         self.settings = BulletSettings()
@@ -22,9 +22,9 @@ class Bullet(Sprite):
             self.settings.height,
         )
 
-        self.rect.midtop = startingMidTop
+        self.rect.midtop = mid_top_position
 
-        self.y = startingMidTop[1]
+        self.y = mid_top_position[1]
 
     @override
     def update(self, *args: Any, **kwargs: Any) -> None:
