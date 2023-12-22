@@ -21,8 +21,7 @@ class AlienInvasion:
         self.is_moving_left = False
         self.is_moving_right = False
 
-        ship_speed = 5.0
-        self.ship = Ship(ship_speed, self.screen.get_rect().midbottom)
+        self.ship = Ship(self.screen.get_rect().midbottom)
 
         self.bullets = Bullets(self.settings.max_bullets)
         self.aliens = Aliens(self.screen.get_rect().topleft, self.screen.get_rect().bottomright)
