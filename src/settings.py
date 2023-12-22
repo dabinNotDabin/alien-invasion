@@ -8,3 +8,4 @@ class Settings:
         self.background_colour = (230, 230, 230)
         self.num_bullets_allowed = 3
         self.alien_width = Alien((0, 0)).rect.width
+        self.alien_height = Alien((0, 0)).rect.height

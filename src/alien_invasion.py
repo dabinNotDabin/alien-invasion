@@ -82,11 +82,19 @@ class AlienInvasion:
             self.is_moving_right = False
 
     def _create_fleet(self):
-        top_left = self.screen.get_rect().topleft
+        screen_rect = self.screen.get_rect()
+        top_left = screen_rect.topleft
 
-        while top_left[1] < self.settings.screen_width - self.settings.alien_width:
-            self.aliens.add(Alien(top_left))
-            top_left = (top_left[0], top_left[1] + 2 * self.settings.alien_width)
+        max_y = self.settings.screen_height - 3 * self.settings.alien_height
+        max_x = self.settings.screen_width - self.settings.alien_width
+        alien_spacing = 2 * self.settings.alien_width
+
+        while top_left[0] < max_y:
+            while top_left[1] < max_x:
+                self.aliens.add(Alien(top_left))
+                top_left = (top_left[0], top_left[1] + alien_spacing)
+
+            top_left = (top_left[0] + alien_spacing, screen_rect.left)
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
