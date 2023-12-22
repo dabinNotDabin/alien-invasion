@@ -38,6 +38,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.bullets.update()
+            self.aliens.update()
             self._update_screen()
             self.clock.tick(60)
 
