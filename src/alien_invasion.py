@@ -16,10 +16,9 @@ class AlienInvasion:
 
         self.settings = Settings()
         self.alien_settings = AlienSettings()
-        self.screen = pygame.display.set_mode((1200, 800))
-
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height)
+        )
 
         self.clock = pygame.time.Clock()
 
