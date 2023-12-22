@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from alien import Alien
+from alien_settings import AlienSettings
 from bullet import Bullet
 from settings import Settings
 from ship import Ship
@@ -14,6 +15,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien fkin Invasion")
 
         self.settings = Settings()
+        self.alien_settings = AlienSettings()
         self.screen = pygame.display.set_mode((1200, 800))
 
         self.settings.screen_width = self.screen.get_rect().width
@@ -85,9 +87,9 @@ class AlienInvasion:
         screen_rect = self.screen.get_rect()
         top_left = screen_rect.topleft
 
-        max_y = self.settings.screen_height - 3 * self.settings.alien_height
-        max_x = self.settings.screen_width - self.settings.alien_width
-        alien_spacing = 2 * self.settings.alien_width
+        max_y = self.settings.screen_height - 3 * self.alien_settings.height
+        max_x = self.settings.screen_width - self.alien_settings.width
+        alien_spacing = 2 * self.alien_settings.width
 
         while top_left[0] < max_y:
             while top_left[1] < max_x:
