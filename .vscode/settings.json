@@ -18,5 +18,5 @@
       "isort.args":["--profile", "black"],
       "python.analysis.autoImportCompletions": true,
       "python.analysis.completeFunctionParens": true,
-      "pylint.args": ["--generated-members", "from_json,query"]
+      "pylint.args": ["--extension-pkg-whitelist=pygame"]
 }
