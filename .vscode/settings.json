@@ -1,22 +1,31 @@
 {
-    "python.defaultInterpreterPath": "C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
-    "terminal.integrated.profiles.windows": {
-        "PowerShell": {
-          "source": "PowerShell",
-          "icon": "terminal-powershell",
-          "args": ["-ExecutionPolicy", "Bypass"]
-        }
-      },
-      "terminal.integrated.defaultProfile.windows": "PowerShell",
-      "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-        },
-      },
-      "isort.args":["--profile", "black"],
-      "python.analysis.autoImportCompletions": true,
-      "python.analysis.completeFunctionParens": true,
-      // "pylint.args": ["--extension-pkg-whitelist=pygame"]
+  "python.defaultInterpreterPath": "C:\\Users\\danie\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true,
+      "source.fixAll": true
+    },
+  },
+  "isort.args": [
+    "--profile",
+    "black"
+  ],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.fixAll": [
+    "source.unusedImports"
+  ],
 }
