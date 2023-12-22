@@ -19,6 +19,7 @@
       "source.fixAll": true
     },
   },
+  "black-formatter.args": ["--line-length", "120"],
   "isort.args": [
     "--profile",
     "black"
