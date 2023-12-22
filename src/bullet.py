@@ -1,5 +1,4 @@
-from ast import stmt
-from typing import TYPE_CHECKING, Any, Tuple
+from typing import TYPE_CHECKING, Any, Tuple, override
 
 import pygame
 from pygame.sprite import Sprite
@@ -27,12 +26,10 @@ class Bullet(Sprite):
 
         self.y = startingMidTop[1]
 
-    def update(self):
+    @override
+    def update(self, *args: Any, **kwargs: Any) -> None:
         self.y -= self.settings.speed
         self.rect.y = self.y
 
     def draw(self, screen: "Surface"):
         pygame.draw.rect(screen, self.settings.colour, self.rect)
-
-    def move_up(self, screen: "Surface"):
-        self.rect.y -= self.settings.speed
