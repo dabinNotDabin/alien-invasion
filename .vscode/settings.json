@@ -12,10 +12,11 @@
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+          "source.organizeImports": "explicit"
         },
       },
       "isort.args":["--profile", "black"],
       "python.analysis.autoImportCompletions": true,
       "python.analysis.completeFunctionParens": true,
+      "pylint.args": ["--generated-members", "from_json,query"]
 }
