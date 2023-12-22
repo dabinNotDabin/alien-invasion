@@ -2,7 +2,6 @@ import sys
 
 import pygame
 
-from alien_settings import AlienSettings
 from aliens import Aliens
 from bullets import Bullets
 from settings import Settings
@@ -15,7 +14,6 @@ class AlienInvasion:
         pygame.display.set_caption("Alien fkin Invasion")
 
         self.settings = Settings()
-        self.alien_settings = AlienSettings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
         self.clock = pygame.time.Clock()
