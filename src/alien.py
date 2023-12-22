@@ -1,7 +1,7 @@
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING
 
 import pygame
-from pygame.sprite import Sprite, _Group
+from pygame.sprite import Sprite
 
 if TYPE_CHECKING:
     from pygame import Surface
@@ -17,15 +17,3 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 
         self.x = float(self.rect.x)
-
-    def move_left(self, screen: "Surface"):
-        if self.rect.left - self.speed >= screen.get_rect().left:
-            self._move(-self.speed)
-
-    def move_right(self, screen: "Surface"):
-        if self.rect.right + self.speed <= screen.get_rect().right:
-            self._move(self.speed)
-
-    def _move(self, horizontalDistance):
-        self.x += horizontalDistance
-        self.rect.x = self.x
