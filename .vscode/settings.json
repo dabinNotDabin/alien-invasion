@@ -18,5 +18,5 @@
       "isort.args":["--profile", "black"],
       "python.analysis.autoImportCompletions": true,
       "python.analysis.completeFunctionParens": true,
-      "pylint.args": ["--extension-pkg-whitelist=pygame"]
+      // "pylint.args": ["--extension-pkg-whitelist=pygame"]
 }
