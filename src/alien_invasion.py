@@ -29,23 +29,21 @@ class AlienInvasion:
 
     def run_game(self):
         while True:
-            self._check_events()
+            self._process_events()
             self.ship.update()
             self.bullets.update()
             self.aliens.update()
             self._update_screen()
             self.clock.tick(60)
 
-    def _check_events(self):
+    def _process_events(self):
         for event in pygame.event.get():
-            self._check_for_quit(event)
-            self._check_key_presses(event)
+            self._process_key_presses(event)
 
-    def _check_for_quit(self, event):
+    def _process_key_presses(self, event):
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             sys.exit()
 
-    def _check_key_presses(self, event):
         if event.type == pygame.KEYDOWN:
             self._handle_key_down(event)
 
