@@ -14,13 +14,6 @@ class AlienFleet(pygame.sprite.Group):
 
         self._create_fleet(screen_rect)
 
-    @override
-    def update(self, *args: Any, **kwargs: Any) -> None:
-        self.aliens.update()
-
-    def draw(self, screen: Surface) -> None:
-        self.aliens.draw(screen)
-
     def _create_fleet(self, screen_rect: pygame.Rect):
         max_x = screen_rect.right - self.alien_settings.width
         max_y = screen_rect.bottom - 3 * self.alien_settings.height
@@ -29,7 +22,25 @@ class AlienFleet(pygame.sprite.Group):
         current_pos = screen_rect.topleft
         while current_pos[0] < max_y:
             while current_pos[1] < max_x:
-                self.aliens.add(Alien(current_pos))
+                self.aliens.add(Alien(current_pos, screen_rect))
                 current_pos = (current_pos[0], current_pos[1] + alien_spacing)
 
             current_pos = (current_pos[0] + alien_spacing, screen_rect.left)
+
+    @override
+    def update(self, *args: Any, **kwargs: Any) -> None:
+        self.aliens.update()
+
+        alien: Alien
+        for alien in self.aliens.sprites():
+            if alien.hit_edge():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        alien: Alien
+        for alien in self.aliens.sprites():
+            alien.change_direction()
+
+    def draw(self, screen: Surface) -> None:
+        self.aliens.draw(screen)
