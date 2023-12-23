@@ -22,7 +22,7 @@ class AlienInvasion:
         self.is_moving_right = False
 
         screen_rect = self.screen.get_rect()
-        self.ship = Ship(screen_rect.midbottom)
+        self.ship = Ship(screen_rect)
 
         self.bullets = Bullets(self.settings.max_bullets)
         self.aliens = Aliens(screen_rect)
@@ -30,6 +30,7 @@ class AlienInvasion:
     def run_game(self):
         while True:
             self._check_events()
+            self.ship.update()
             self.bullets.update()
             self.aliens.update()
             self._update_screen()
@@ -39,11 +40,6 @@ class AlienInvasion:
         for event in pygame.event.get():
             self._check_for_quit(event)
             self._check_key_presses(event)
-
-        if self.is_moving_left:
-            self.ship.move_left(self.screen)
-        if self.is_moving_right:
-            self.ship.move_right(self.screen)
 
     def _check_for_quit(self, event):
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
@@ -58,17 +54,17 @@ class AlienInvasion:
 
     def _handle_key_down(self, event):
         if event.key == pygame.K_LEFT:
-            self.is_moving_left = True
+            self.ship.set_moving_left()
         elif event.key == pygame.K_RIGHT:
-            self.is_moving_right = True
+            self.ship.set_moving_right()
         elif event.key == pygame.K_SPACE:
             self.bullets.fire_bullet(self.ship.rect.midtop)
 
     def _handle_key_up(self, event):
         if event.key == pygame.K_LEFT:
-            self.is_moving_left = False
+            self.ship.stop_moving_left()
         elif event.key == pygame.K_RIGHT:
-            self.is_moving_right = False
+            self.ship.stop_moving_right()
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
