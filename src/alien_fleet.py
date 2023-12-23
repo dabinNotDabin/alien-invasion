@@ -34,12 +34,13 @@ class AlienFleet(pygame.sprite.Group):
         alien: Alien
         for alien in self.aliens.sprites():
             if alien.hit_edge():
-                self._change_fleet_direction()
+                self._advance_fleet()
                 break
 
-    def _change_fleet_direction(self):
+    def _advance_fleet(self):
         alien: Alien
         for alien in self.aliens.sprites():
+            alien.move_down()
             alien.change_direction()
 
     def draw(self, screen: Surface) -> None:

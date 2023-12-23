@@ -31,5 +31,7 @@ class Alien(Sprite):
             return True
 
     def change_direction(self):
-        self.rect.y += self.settings.vertical_speed
         self.settings.direction = Direction.opposite(self.settings.direction)
+
+    def move_down(self):
+        self.rect.y += self.settings.vertical_speed
