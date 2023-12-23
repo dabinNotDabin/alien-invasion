@@ -5,12 +5,10 @@ from pygame.surface import Surface
 
 from alien import Alien
 from alien_settings import AlienSettings
-from fleet_settings import FleetSettings
 
 
 class AlienFleet(pygame.sprite.Group):
     def __init__(self, screen_rect: pygame.Rect) -> None:
-        self.settings = FleetSettings()
         self.alien_settings = AlienSettings()
         self.aliens = pygame.sprite.Group()
 

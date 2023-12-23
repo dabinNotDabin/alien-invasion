@@ -1,12 +1,9 @@
-from typing import TYPE_CHECKING, Any, Tuple, override
+from typing import Any, Tuple, override
 
 import pygame
 from pygame.sprite import Sprite
 
 from alien_settings import AlienSettings
-
-if TYPE_CHECKING:
-    from pygame import Surface
 
 
 class Alien(Sprite):
@@ -24,5 +21,5 @@ class Alien(Sprite):
 
     @override
     def update(self, *args: Any, **kwargs: Any) -> None:
-        self.x += self.settings.speed
+        self.x += self.settings.speed * self.settings.direction
         self.rect.x = self.x
