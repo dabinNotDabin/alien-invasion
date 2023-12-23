@@ -21,10 +21,11 @@ class AlienInvasion:
         self.is_moving_left = False
         self.is_moving_right = False
 
-        self.ship = Ship(self.screen.get_rect().midbottom)
+        screen_rect = self.screen.get_rect()
+        self.ship = Ship(screen_rect.midbottom)
 
         self.bullets = Bullets(self.settings.max_bullets)
-        self.aliens = Aliens(self.screen.get_rect().topleft, self.screen.get_rect().bottomright)
+        self.aliens = Aliens(screen_rect)
 
     def run_game(self):
         while True:
