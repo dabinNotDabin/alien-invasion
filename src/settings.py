@@ -1,6 +1,3 @@
-from alien import Alien
-
-
 class Settings:
     def __init__(self) -> None:
         self.screen_width = 1200

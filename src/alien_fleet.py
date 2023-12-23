@@ -5,11 +5,13 @@ from pygame.surface import Surface
 
 from alien import Alien
 from alien_settings import AlienSettings
+from fleet_settings import FleetSettings
 
 
-class Aliens(pygame.sprite.Group):
+class AlienFleet(pygame.sprite.Group):
     def __init__(self, screen_rect: pygame.Rect) -> None:
-        self.settings = AlienSettings()
+        self.settings = FleetSettings()
+        self.alien_settings = AlienSettings()
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet(screen_rect)
@@ -22,9 +24,9 @@ class Aliens(pygame.sprite.Group):
         self.aliens.draw(screen)
 
     def _create_fleet(self, screen_rect: pygame.Rect):
-        max_x = screen_rect.right - self.settings.width
-        max_y = screen_rect.bottom - 3 * self.settings.height
-        alien_spacing = 2 * self.settings.width
+        max_x = screen_rect.right - self.alien_settings.width
+        max_y = screen_rect.bottom - 3 * self.alien_settings.height
+        alien_spacing = 2 * self.alien_settings.width
 
         current_pos = screen_rect.topleft
         while current_pos[0] < max_y:

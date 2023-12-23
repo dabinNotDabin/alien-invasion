@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from aliens import Aliens
+from alien_fleet import AlienFleet
 from bullets import Bullets
 from settings import Settings
 from ship import Ship
@@ -25,7 +25,7 @@ class AlienInvasion:
         self.ship = Ship(screen_rect)
 
         self.bullets = Bullets(self.settings.max_bullets)
-        self.aliens = Aliens(screen_rect)
+        self.aliens = AlienFleet(screen_rect)
 
     def run_game(self):
         while True:
