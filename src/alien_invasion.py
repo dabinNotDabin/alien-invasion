@@ -33,6 +33,7 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
             self.aliens.update()
+            self._process_collisions()
             self._update_screen()
             self.clock.tick(60)
 
@@ -63,6 +64,9 @@ class AlienInvasion:
             self.ship.stop_moving_left()
         elif event.key == pygame.K_RIGHT:
             self.ship.stop_moving_right()
+
+    def _process_collisions(self):
+        pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
