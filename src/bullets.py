@@ -15,6 +15,10 @@ class Bullets(pygame.sprite.Group):
     def update(self, *args: Any, **kwargs: Any) -> None:
         self.bullets.update()
 
+    @override
+    def empty(self) -> None:
+        return self.bullets.empty()
+
     def draw(self, screen: Surface) -> None:
         for bullet in self.bullets.sprites():
             if bullet.rect.bottom <= 0:

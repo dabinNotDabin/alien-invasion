@@ -34,6 +34,7 @@ class AlienInvasion:
             self.bullets.update()
             self.aliens.update()
             self._process_collisions()
+            self._rebuild_empty_fleet()
             self._update_screen()
             self.clock.tick(60)
 
@@ -67,6 +68,11 @@ class AlienInvasion:
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
+
+    def _rebuild_empty_fleet(self):
+        if not self.aliens.aliens:
+            self.bullets.empty()
+            self.aliens = AlienFleet(self.screen.get_rect())
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)
