@@ -21,9 +21,6 @@ class AlienInvasion:
 
         self.clock = pygame.time.Clock()
 
-        self.is_moving_left = False
-        self.is_moving_right = False
-
         screen_rect = self.screen.get_rect()
         self.ship = Ship(screen_rect)
 
