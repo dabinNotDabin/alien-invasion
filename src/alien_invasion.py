@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 
 import pygame
 
@@ -6,6 +7,7 @@ from alien_fleet import AlienFleet
 from bullets import Bullets
 from settings import Settings
 from ship import Ship
+from stats import EventType, Stats
 
 
 class AlienInvasion:
@@ -14,6 +16,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien fkin Invasion")
 
         self.settings = Settings()
+        self.stats = Stats()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
         self.clock = pygame.time.Clock()
@@ -34,7 +37,7 @@ class AlienInvasion:
             self.bullets.update()
             self.aliens.update()
             self._process_collisions()
-            self._rebuild_empty_fleet()
+            self._rebuild_fleet_if_empty()
             self._update_screen()
             self.clock.tick(60)
 
@@ -68,8 +71,19 @@ class AlienInvasion:
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
+        is_ship_alien_collision = pygame.sprite.spritecollideany(self.ship, self.aliens.aliens)
+        if is_ship_alien_collision:
+            self.stats.record(EventType.SHIP_HIT)
+            self._reset_game()
 
-    def _rebuild_empty_fleet(self):
+    def _reset_game(self):
+        sleep(self.settings.ship_hit_sleep_time_seconds)
+        self.aliens.empty()
+        self.bullets.empty()
+        self.aliens = AlienFleet(self.screen.get_rect())
+        self.ship.reposition(self.screen.get_rect().midbottom)
+
+    def _rebuild_fleet_if_empty(self):
         if not self.aliens.aliens:
             self.bullets.empty()
             self.aliens = AlienFleet(self.screen.get_rect())

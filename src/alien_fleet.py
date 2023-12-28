@@ -28,6 +28,10 @@ class AlienFleet(pygame.sprite.Group):
             current_pos = (current_pos[0] + alien_spacing, screen_rect.left)
 
     @override
+    def empty(self) -> None:
+        return self.aliens.empty()
+
+    @override
     def update(self, *args: Any, **kwargs: Any) -> None:
         self.aliens.update()
 

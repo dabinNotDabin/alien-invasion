@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, override
+from typing import TYPE_CHECKING, Any, Tuple, override
 
 import pygame
 from pygame.sprite import Sprite
@@ -55,3 +55,7 @@ class Ship(Sprite):
 
     def stop_moving_right(self):
         self.settings.moving_right = False
+
+    def reposition(self, midbottom: Tuple[float, float]):
+        self.rect.midbottom = midbottom
+        self.x = float(self.rect.x)
