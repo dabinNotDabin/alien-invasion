@@ -11,6 +11,7 @@ class AlienFleet(pygame.sprite.Group):
     def __init__(self, screen_rect: pygame.Rect) -> None:
         self.alien_settings = AlienSettings()
         self.aliens = pygame.sprite.Group()
+        self.screen_rect = screen_rect
 
         self._create_fleet(screen_rect)
 
@@ -49,3 +50,10 @@ class AlienFleet(pygame.sprite.Group):
 
     def draw(self, screen: Surface) -> None:
         self.aliens.draw(screen)
+
+    def is_alien_at_bottom(self) -> bool:
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= self.screen_rect.bottom:
+                return True
+
+        return False

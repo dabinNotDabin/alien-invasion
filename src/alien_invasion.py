@@ -72,7 +72,7 @@ class AlienInvasion:
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
         is_ship_alien_collision = pygame.sprite.spritecollideany(self.ship, self.aliens.aliens)
-        if is_ship_alien_collision:
+        if is_ship_alien_collision or self.aliens.is_alien_at_bottom():
             self.stats.record(EventType.SHIP_HIT)
             self._reset_game()
 
