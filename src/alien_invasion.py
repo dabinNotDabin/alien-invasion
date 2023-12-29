@@ -59,6 +59,9 @@ class AlienInvasion:
         if event.type == pygame.KEYUP:
             self._handle_key_up(event)
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self._handle_mouse_down()
+
     def _handle_key_down(self, event):
         if event.key == pygame.K_LEFT:
             self.ship.set_moving_left()
@@ -72,6 +75,11 @@ class AlienInvasion:
             self.ship.stop_moving_left()
         elif event.key == pygame.K_RIGHT:
             self.ship.stop_moving_right()
+
+    def _handle_mouse_down(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.is_active = True
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
