@@ -5,6 +5,7 @@ import pygame
 
 from alien_fleet import AlienFleet
 from bullets import Bullets
+from button import TextButton
 from settings import Settings
 from ship import Ship
 from stats import EventType, Stats
@@ -21,13 +22,14 @@ class AlienInvasion:
 
         self.clock = pygame.time.Clock()
 
-        self.is_active = True
-
         screen_rect = self.screen.get_rect()
         self.ship = Ship(screen_rect)
 
         self.bullets = Bullets(self.settings.max_bullets)
         self.aliens = AlienFleet(screen_rect)
+
+        self.is_active = False
+        self.play_button = TextButton(screen_rect, "Play")
 
     def run_game(self):
         while True:
@@ -101,6 +103,10 @@ class AlienInvasion:
         self.ship.draw(self.screen)
         self.bullets.draw(self.screen)
         self.aliens.draw(self.screen)
+
+        if not self.is_active:
+            self.play_button.draw(self.screen)
+
         pygame.display.flip()
 
 
