@@ -82,6 +82,7 @@ class AlienInvasion:
             self.is_active = True
             self._reset_game()
             self.stats = Stats()
+            pygame.mouse.set_visible(False)
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
@@ -116,6 +117,7 @@ class AlienInvasion:
 
         if not self.is_active:
             self.play_button.draw(self.screen)
+            pygame.mouse.set_visible(True)
 
         pygame.display.flip()
 
