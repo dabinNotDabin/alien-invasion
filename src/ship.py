@@ -59,3 +59,6 @@ class Ship(Sprite):
     def reposition(self, midbottom: Tuple[float, float]):
         self.rect.midbottom = midbottom
         self.x = float(self.rect.x)
+
+    def increase_speed(self, factor: float):
+        self.settings.speed *= factor

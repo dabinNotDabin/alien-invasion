@@ -40,7 +40,7 @@ class AlienInvasion:
                 self.ship.update()
                 self.bullets.update()
                 self.aliens.update()
-                self._rebuild_fleet_if_empty()
+                self._check_for_empty_fleet()
 
             self._update_screen()
             self.clock.tick(60)
@@ -86,6 +86,7 @@ class AlienInvasion:
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
+
         is_ship_alien_collision = pygame.sprite.spritecollideany(self.ship, self.aliens.aliens)
         if is_ship_alien_collision or self.aliens.is_alien_at_bottom():
             self.stats.record(EventType.SHIP_HIT)
@@ -98,16 +99,20 @@ class AlienInvasion:
     def _reset_game(self):
         self.aliens.empty()
         self.bullets.empty()
-        self.aliens = AlienFleet(self.screen.get_rect())
+        self.aliens.create_fleet()
         self.ship.reposition(self.screen.get_rect().midbottom)
 
     def _game_over(self):
         self.is_active = False
 
-    def _rebuild_fleet_if_empty(self):
+    def _check_for_empty_fleet(self):
         if not self.aliens.aliens:
             self.bullets.empty()
-            self.aliens = AlienFleet(self.screen.get_rect())
+            self.aliens.create_fleet()
+
+            self.ship.increase_speed(self.settings.speedup_factor)
+            self.aliens.increase_speed(self.settings.speedup_factor)
+            self.bullets.increase_speed(self.settings.speedup_factor)
 
     def _update_screen(self):
         self.screen.fill(self.settings.background_colour)

@@ -4,10 +4,12 @@ import pygame
 from pygame.surface import Surface
 
 from bullet import Bullet
+from bullet_settings import BulletSettings
 
 
 class Bullets(pygame.sprite.Group):
     def __init__(self, max_bullets: int) -> None:
+        self.bullet_settings = BulletSettings()
         self.bullets = pygame.sprite.Group()
         self.max_bullets = max_bullets
 
@@ -28,5 +30,8 @@ class Bullets(pygame.sprite.Group):
 
     def fire_bullet(self, mid_top_position: Tuple[float, float]):
         if len(self.bullets) < self.max_bullets:
-            bullet = Bullet(mid_top_position)
+            bullet = Bullet(mid_top_position, self.bullet_settings)
             self.bullets.add(bullet)
+
+    def increase_speed(self, factor: float):
+        self.bullet_settings.speed *= factor

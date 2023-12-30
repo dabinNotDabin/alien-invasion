@@ -10,10 +10,10 @@ if TYPE_CHECKING:
 
 
 class Bullet(Sprite):
-    def __init__(self, mid_top_position: Tuple[float, float]) -> None:
+    def __init__(self, mid_top_position: Tuple[float, float], settings: BulletSettings) -> None:
         super().__init__()
 
-        self.settings = BulletSettings()
+        self.settings = settings
 
         self.rect = pygame.Rect(
             0,

@@ -4,14 +4,13 @@ import pygame
 from pygame.sprite import Sprite
 
 from alien_settings import AlienSettings
-from direction import Direction
 
 
 class Alien(Sprite):
-    def __init__(self, top_left: Tuple[int, int], screen_rect: pygame.Rect) -> None:
+    def __init__(self, top_left: Tuple[int, int], screen_rect: pygame.Rect, settings: AlienSettings) -> None:
         super().__init__()
 
-        self.settings = AlienSettings()
+        self.settings = settings
         self.screen_rect = screen_rect
 
         self.image = pygame.image.load("./images/alien.bmp")
@@ -30,8 +29,7 @@ class Alien(Sprite):
         if self.rect.right >= self.screen_rect.right or self.rect.left <= self.screen_rect.left:
             return True
 
-    def change_direction(self):
-        self.settings.direction = Direction.opposite(self.settings.direction)
+        return False
 
     def move_down(self):
         self.rect.y += self.settings.vertical_speed
