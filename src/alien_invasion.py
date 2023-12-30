@@ -78,8 +78,10 @@ class AlienInvasion:
 
     def _handle_mouse_down(self):
         mouse_pos = pygame.mouse.get_pos()
-        if self.play_button.rect.collidepoint(mouse_pos):
+        if not self.is_active and self.play_button.rect.collidepoint(mouse_pos):
             self.is_active = True
+            self._reset_game()
+            self.stats = Stats()
 
     def _process_collisions(self):
         pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
@@ -87,12 +89,12 @@ class AlienInvasion:
         if is_ship_alien_collision or self.aliens.is_alien_at_bottom():
             self.stats.record(EventType.SHIP_HIT)
             if self.stats.ships_left > 0:
+                sleep(self.settings.ship_hit_sleep_time_seconds)
                 self._reset_game()
             else:
                 self._game_over()
 
     def _reset_game(self):
-        sleep(self.settings.ship_hit_sleep_time_seconds)
         self.aliens.empty()
         self.bullets.empty()
         self.aliens = AlienFleet(self.screen.get_rect())
