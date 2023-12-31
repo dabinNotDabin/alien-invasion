@@ -5,10 +5,10 @@ import pygame
 
 from alien_fleet import AlienFleet
 from bullets import Bullets
-from button import TextButton
 from settings import Settings
 from ship import Ship
 from stats import EventType, Stats
+from text_button import TextButton
 
 
 class AlienInvasion:
