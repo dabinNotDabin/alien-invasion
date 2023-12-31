@@ -31,7 +31,7 @@ class AlienInvasion:
 
         self.is_active = False
         self.play_button = TextButton(screen_rect, "Play")
-        self.scoreboard = Scoreboard(screen_rect, self.stats)
+        self.scoreboard = Scoreboard(screen_rect)
 
     def run_game(self):
         while True:
@@ -87,7 +87,8 @@ class AlienInvasion:
             pygame.mouse.set_visible(False)
 
     def _process_collisions(self):
-        pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets.bullets, self.aliens.aliens, True, True)
+        self.stats.increment_score(len(collisions.items()))
 
         is_ship_alien_collision = pygame.sprite.spritecollideany(self.ship, self.aliens.aliens)
         if is_ship_alien_collision or self.aliens.is_alien_at_bottom():
@@ -124,7 +125,7 @@ class AlienInvasion:
         self.ship.draw(self.screen)
         self.bullets.draw(self.screen)
         self.aliens.draw(self.screen)
-        self.scoreboard.draw(self.screen)
+        self.scoreboard.draw(self.screen, self.stats)
 
         if not self.is_active:
             self.play_button.draw(self.screen)

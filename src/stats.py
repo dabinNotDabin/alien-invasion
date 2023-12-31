@@ -13,3 +13,6 @@ class Stats:
     def record(self, event: EventType):
         if event == EventType.SHIP_HIT:
             self.ships_left -= 1
+
+    def increment_score(self, amount: int):
+        self.score += amount
