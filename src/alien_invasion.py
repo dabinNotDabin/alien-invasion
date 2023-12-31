@@ -5,6 +5,7 @@ import pygame
 
 from alien_fleet import AlienFleet
 from bullets import Bullets
+from scoreboard import Scoreboard
 from settings import Settings
 from ship import Ship
 from stats import EventType, Stats
@@ -30,6 +31,7 @@ class AlienInvasion:
 
         self.is_active = False
         self.play_button = TextButton(screen_rect, "Play")
+        self.scoreboard = Scoreboard(screen_rect, self.stats)
 
     def run_game(self):
         while True:
@@ -118,10 +120,11 @@ class AlienInvasion:
             self.bullets.increase_speed(self.settings.speedup_factor)
 
     def _update_screen(self):
-        self.screen.fill(self.settings.background_colour)
+        self.screen.fill(Settings.BACKGROUND_COLOUR)
         self.ship.draw(self.screen)
         self.bullets.draw(self.screen)
         self.aliens.draw(self.screen)
+        self.scoreboard.draw(self.screen)
 
         if not self.is_active:
             self.play_button.draw(self.screen)
