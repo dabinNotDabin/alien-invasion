@@ -47,9 +47,9 @@ class AlienInvasion:
 
     def _process_events(self):
         for event in pygame.event.get():
-            self._process_key_presses(event)
+            self._process_event(event)
 
-    def _process_key_presses(self, event):
+    def _process_event(self, event):
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             sys.exit()
 
