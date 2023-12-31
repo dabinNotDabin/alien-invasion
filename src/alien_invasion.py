@@ -17,7 +17,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien fkin Invasion")
 
         self.settings = Settings()
-        self.stats = Stats()
+        self.stats = Stats(Settings.STARTING_SHIPS)
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
 
         self.clock = pygame.time.Clock()
@@ -81,7 +81,7 @@ class AlienInvasion:
         if not self.is_active and self.play_button.rect.collidepoint(mouse_pos):
             self.is_active = True
             self._reset_game()
-            self.stats = Stats()
+            self.stats = Stats(Settings.STARTING_SHIPS)
             pygame.mouse.set_visible(False)
 
     def _process_collisions(self):
