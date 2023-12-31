@@ -104,6 +104,9 @@ class AlienInvasion:
 
     def _game_over(self):
         self.is_active = False
+        self.aliens = AlienFleet(self.screen.get_rect())
+        self.bullets = Bullets(self.settings.max_bullets)
+        self.ship = Ship(self.screen.get_rect())
 
     def _check_for_empty_fleet(self):
         if not self.aliens.aliens:
